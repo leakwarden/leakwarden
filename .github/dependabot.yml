@@ -1,21 +1,73 @@
-# Monthly dependency and security updates, opened as pull requests and checked by CI.
+# Monthly minor/patch and security updates, one grouped pull request per ecosystem, checked by CI.
+# Major versions are skipped (they need code changes); security fixes still arrive.
 version: 2
 updates:
-  - package-ecosystem: pip
-    directory: /server
-    schedule: {interval: monthly}
-    open-pull-requests-limit: 5
-  - package-ecosystem: nuget
-    directories: [/agent, /agent-unix, /agent.tests, /watchdog]
-    schedule: {interval: monthly}
-    open-pull-requests-limit: 5
-  - package-ecosystem: npm
-    directory: /browser-extension
-    schedule: {interval: monthly}
-    open-pull-requests-limit: 3
-  - package-ecosystem: github-actions
-    directory: /
-    schedule: {interval: monthly}
-  - package-ecosystem: docker
-    directory: /server
-    schedule: {interval: monthly}
+- package-ecosystem: pip
+  directory: /server
+  schedule:
+    interval: monthly
+  open-pull-requests-limit: 1
+  ignore:
+  - dependency-name: '*'
+    update-types:
+    - version-update:semver-major
+  groups:
+    all:
+      patterns:
+      - '*'
+- package-ecosystem: nuget
+  directories:
+  - /agent
+  - /agent-unix
+  - /agent.tests
+  - /watchdog
+  schedule:
+    interval: monthly
+  open-pull-requests-limit: 1
+  ignore:
+  - dependency-name: '*'
+    update-types:
+    - version-update:semver-major
+  groups:
+    all:
+      patterns:
+      - '*'
+- package-ecosystem: npm
+  directory: /browser-extension
+  schedule:
+    interval: monthly
+  open-pull-requests-limit: 1
+  ignore:
+  - dependency-name: '*'
+    update-types:
+    - version-update:semver-major
+  groups:
+    all:
+      patterns:
+      - '*'
+- package-ecosystem: github-actions
+  directory: /
+  schedule:
+    interval: monthly
+  ignore:
+  - dependency-name: '*'
+    update-types:
+    - version-update:semver-major
+  groups:
+    all:
+      patterns:
+      - '*'
+  open-pull-requests-limit: 1
+- package-ecosystem: docker
+  directory: /server
+  schedule:
+    interval: monthly
+  ignore:
+  - dependency-name: '*'
+    update-types:
+    - version-update:semver-major
+  groups:
+    all:
+      patterns:
+      - '*'
+  open-pull-requests-limit: 1
